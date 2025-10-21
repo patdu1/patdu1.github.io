@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<!-- version 21.10.2025 mostly scalable -->
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<style>
+body {
+  font-family: Verdana, Arial, sans-serif;
+  text-align: center;
+}
+table, th, td {
+  border: 0px solid black;
+  border-collapse: collapse;
+  padding-top: 0.5vh;
+  padding-bottom:1vh;
+  text-align:center;
+  font-size: 1.5vw;
+}
+button {
+  color: navy;
+  backgroundColor: whitesmoke;
+  padding: 0.1vh 2vw;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 1.2vw;
+  border-radius: 0.5vw;
+  cursor: pointer;
+}
+#ResWarn {
+	font-size:2.2vw;
+	color:red;
+	text-align:center;
+	background-color: #ffff00;
+}
+
+</style>
+
+<title>Informations Course 1</title>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+<script src="https://c-lake.github.io/csv-charts/js/chartjs-plugin-colorschemes.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@0.7.7"></script>
+
+<script type="text/javascript">
+	// My own handling of element display
+	function showWhatIwant(what) {
+	  var x = document.getElementById(what);
+	  var what_btn = 'btn_' + what;
+	  var btn_x = document.getElementById(what_btn);
+	  // Reset all buttons to default and hide all canvas
+	  hideCanvas('temps_au_tour');
+	  hideCanvas('positions');
+	  hideCanvas('ecarts');
+	  document.getElementById('btn_temps_au_tour').style.backgroundColor = "";
+	  document.getElementById('btn_positions').style.backgroundColor = "";
+	  document.getElementById('btn_ecarts').style.backgroundColor = "";
+	  // Set color of clicked button and display selected canvas
+	  x.style.display = "block";
+	  btn_x.style.backgroundColor = "lightskyblue";
+	}
+	
+	function hideCanvas(x) {
+	   document.getElementById(x).style.display = "none";
+	}
+	// NOTE: legend onClick handling taken from https://stackoverflow.com/questions/42555513/chart-js-change-legend-toggle-behaviour
+</script>
+</head>
+
+<body>
+<!-- One table with 3 columns (3 graphs, 3 buttons). Must use colspan to "group" columns on 1st line -->
+<table style="width:95vw">
+<tr>
+<td id="ResWarn" colspan="3">Informations non-officielles</td>
+</tr>
+<tr>
+<td style ="width:33%;text-align:right">Jidé 1600s @ Pau 2017 (C1)</td>
+<td style ="width:33%"></td>
+<td style ="width:33%;text-align:left">Date: 20/10/2025</td>
+</tr>
+<tr>
+<td style="width:33%">
+<button type="button" id="btn_positions"onclick="showWhatIwant('positions')" style="background-color: lightskyblue">Positions</button>
+</td>
+<td style="width:33%">
+<button type="button" id="btn_ecarts" onclick="showWhatIwant('ecarts')">Ecarts</button>
+</td>
+<td style="width:33%">
+<button type="button" id="btn_temps_au_tour" onclick="showWhatIwant('temps_au_tour')">Temps au tour</button>
+</td>
+</tr>
+</table>
+
+<div class="Graphique" style="position:relative; height:80vh; width:95vw; background-color:whitesmoke">
+	<!-- canvas id="temps_au_tour" style="height:100%; width:100%" option="responsive: true; maintainAspectRatio: false"></canvas>
+	<canvas id="positions" style="height:100%; width:100%"></canvas>
+	<canvas id="ecarts" style="height:100%; width:100%"></canvas -->
+	<canvas id="positions" style="height:100%; width:100%" option="maintainAspectRatio: false"></canvas>
+	<canvas id="ecarts" style="height:100%; width:100%" option="maintainAspectRatio: false"></canvas>
+	<canvas id="temps_au_tour" style="height:100%; width:100%" option="maintainAspectRatio: false"></canvas>
+</div>
+
+</p>
+<script>
+	// Charts generation block, copy/pasted/edited from URL below
+    // Generated with csv-charts at https://c-lake.github.io/csv-charts
+	let ctx5910 = document.getElementById('ecarts').getContext('2d');
+    let csvChart5910 = new Chart(ctx5910, {"type":"line","data":{"labels":[0,1,2,3,4,5,6,7,8,9,10,11,12,13],"datasets":[{"label":"Oli","lineTension":0,"borderWidth":1,"pointRadius":2,"fill":false,"data":[0,0,0,0,0,0,0,0,0,0,0,0,0,0]},{"label":"vmax330","lineTension":0,"borderWidth":1,"pointRadius":2,"fill":false,"data":[0,-2.179,-2.77800000000002,-3.67200000000003,-3.42800000000005,-4.30400000000003,-4.745,-6.01300000000003,-6.32100000000003,-7.00700000000006,-6.95499999999993,-13.0909999999999,-12.9260000000002,-11.7829999999999]},{"label":"mark44","lineTension":0,"borderWidth":1,"pointRadius":2,"fill":false,"data":[0,-1.36,-2.09900000000002,-2.98200000000003,-2.74400000000003,-3.54300000000006,-3.38599999999997,-4.46900000000005,-4.85599999999999,-6.15600000000018,-6.04399999999987,-14.4489999999998,-14.4880000000001,-14.4650000000001]},{"label":"Thomas Crabos","lineTension":0,"borderWidth":1,"pointRadius":2,"fill":false,"data":[0,-3.8,-6.10700000000003,-8.63200000000001,-9.68299999999999,-12.555,-13.973,-15.924,-16.978,-18.4600000000002,-19.2249999999999,-20.5159999999999,-20.2879999999998,-18.7360000000001]},{"label":"Denis Wit","lineTension":0,"borderWidth":1,"pointRadius":2,"fill":false,"data":[0,-3.113,-5.05100000000002,-7.60700000000003,-9.00600000000003,-11.7660000000001,-13.377,-15.203,-17.8609999999999,-19.692,-22.2669999999999,-24.2349999999999,-25.1389999999999,-24.654]},{"label":"herve069","lineTension":0,"borderWidth":1,"pointRadius":2,"fill":false,"data":[0,-7.08800000000001,-9.50300000000004,-12.217,-14.3800000000001,-15.8600000000001,-17.112,-19.484,-20.963,-23.3660000000001,-24.2289999999999,-25.865,-25.9870000000001,-26.0940000000001]},{"label":"ludo60360","lineTension":0,"borderWidth":1,"pointRadius":2,"fill":false,"data":[0,-8.566,-11.353,-14.193,-15.9010000000001,-18.5840000000001,-21.231,-23.581,-26.116,-28.4960000000001,-29.6529999999999,-31.991,-33.0360000000001,-33.4070000000002]},{"label":"TomRod","lineTension":0,"borderWidth":1,"pointRadius":2,"fill":false,"data":[0,-6.69800000000001,-9.40900000000002,-10.622,-13.643,-20.2980000000001,-23.7099999999999,-26.42,-29.3239999999998,-30.7630000000001,-30.972,-32.654,-34.884,-34.48]},{"label":"S.Cargo","lineTension":0,"borderWidth":1,"pointRadius":2,"fill":false,"data":[0,-10.551,-15.118,-19.88,-23.094,-25.751,-28.607,-31.878,-34.138,-37.2480000000001,-39.5099999999999,-42.575,-44.162,-45.143]},{"label":"James Schunt","lineTension":0,"borderWidth":1,"pointRadius":2,"fill":false,"data":[0,-5.309,-8.291,-9.98700000000002,-14.204,-21.0340000000001,-28.182,-32.2660000000001,-35.9169999999999,-39.922,-44.8979999999999,-49.5229999999999,-51.8919999999998,-53.231]},{"label":"Jempy","lineTension":0,"borderWidth":1,"pointRadius":2,"fill":false,"data":[0,-9.39,-13.412,-20.6150000000001,-25.965,-29.4630000000001,-33.54,-37.508,-41.534,-46.4200000000001,-50.4099999999999,-54.316,-59.913,-62.2070000000001]},{"label":"evolm","lineTension":0,"borderWidth":1,"pointRadius":2,"fill":false,"data":[0,-5.015,-10.435,-13.008,-32.676,-34.8140000000001,-36.058,-38.005,-42.0949999999999,-44.071,-48.97,-51.395,-71.943,null]},{"label":"gazkawa","lineTension":0,"borderWidth":1,"pointRadius":2,"fill":false,"data":[0,-12.491,-24.869,-28.591,-39.821,-42.2170000000001,-42.872,-45.335,-47.72,-49.888,-50.953,-52.7170000000001,-73.2459999999999,null]},{"label":"Hrodgar","lineTension":0,"borderWidth":1,"pointRadius":2,"fill":false,"data":[0,-13.734,-17.891,-23.064,-28.379,-33.0490000000001,-39.2520000000001,-44.335,-50.991,-56.8520000000001,-61.4849999999999,-66.6879999999999,-73.6960000000001,null]},{"label":"Daalen","lineTension":0,"borderWidth":1,"pointRadius":2,"fill":false,"data":[0,-9.79600000000001,-14.756,-19.338,-22.242,-24.9190000000001,-30.788,-35.221,-39.741,-43.8660000000001,-48.01,-51.45,-74.4739999999999,null]},{"label":"Patrice Virlin","lineTension":0,"borderWidth":1,"pointRadius":2,"fill":false,"data":[0,-14.833,-20.819,-28.003,-36.933,-41.2740000000001,-46.3720000000001,-56.314,-60.4669999999999,-65.0720000000001,-68.9189999999999,-74.105,-79.1020000000001,null]}]},"options":{"title":{"display":false,"fontSize":16,"text":""},"scales":{"xAxes":[{"scaleLabel":{"display":true,"labelString":"Tours"},"min":0}],"yAxes":[{"scaleLabel":{"display":true,"labelString":"secondes"},"ticks":{"beginAtZero":false,"min":-80,"max":0,"stepSize":10,"callback":function (value, index, values) { return -value }}}]},"plugins":{"colorschemes":{"scheme":["red","green","blue","darkviolet","black","gold","cyan","magenta","orangered","deeppink","lime","turquoise","sienna","yellowgreen","royalblue","slategrey","tan"]},"zoom":{"pan":{"enabled":false,"mode":""},"zoom":{"enabled":false,"mode":""}}},"legend":{"position":"top","onClick":function (e, legendItem) { const chart = this.chart; const datasetIndex = legendItem.datasetIndex;  const dataset = chart.data.datasets[datasetIndex]; dataset.borderWidth = dataset.borderWidth === 1 ? 4 : 1; const current = dataset.datalabels?.display ?? false; dataset.datalabels = {display: !current}; chart.update();}}}});
+
+	// Generated with csv-charts at https://c-lake.github.io/csv-charts
+	let ctx6327 = document.getElementById('positions').getContext('2d');
+    let csvChart6327 = new Chart(ctx6327, {"type":"line","data":{"labels":[0,1,2,3,4,5,6,7,8,9,10,11,12,13],"datasets":[{"label":"Oli","lineTension":0,"borderWidth":1,"pointRadius":2,"fill":false,"data":[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1]},{"label":"vmax330","lineTension":0,"borderWidth":1,"pointRadius":2,"fill":false,"data":[-3,-3,-3,-3,-3,-3,-3,-3,-3,-3,-3,-2,-2,-2]},{"label":"mark44","lineTension":0,"borderWidth":1,"pointRadius":2,"fill":false,"data":[-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-3,-3,-3]},{"label":"Thomas Crabos","lineTension":0,"borderWidth":1,"pointRadius":2,"fill":false,"data":[-4,-5,-5,-5,-5,-5,-5,-5,-4,-4,-4,-4,-4,-4]},{"label":"Denis Wit","lineTension":0,"borderWidth":1,"pointRadius":2,"fill":false,"data":[-8,-4,-4,-4,-4,-4,-4,-4,-5,-5,-5,-5,-5,-5]},{"label":"herve069","lineTension":0,"borderWidth":1,"pointRadius":2,"fill":false,"data":[-11,-9,-8,-8,-8,-6,-6,-6,-6,-6,-6,-6,-6,-6]},{"label":"ludo60360","lineTension":0,"borderWidth":1,"pointRadius":2,"fill":false,"data":[-10,-10,-10,-10,-9,-7,-7,-7,-7,-7,-7,-7,-7,-7]},{"label":"TomRod","lineTension":0,"borderWidth":1,"pointRadius":2,"fill":false,"data":[-7,-8,-7,-7,-6,-8,-8,-8,-8,-8,-8,-8,-8,-8]},{"label":"S.Cargo","lineTension":0,"borderWidth":1,"pointRadius":2,"fill":false,"data":[-13,-13,-13,-12,-11,-11,-10,-9,-9,-9,-9,-9,-9,-9]},{"label":"James Schunt","lineTension":0,"borderWidth":1,"pointRadius":2,"fill":false,"data":[-9,-7,-6,-6,-7,-9,-9,-10,-10,-10,-10,-10,-10,-10]},{"label":"Jempy","lineTension":0,"borderWidth":1,"pointRadius":2,"fill":false,"data":[-12,-11,-11,-13,-12,-12,-12,-12,-12,-13,-13,-14,-11,-11]},{"label":"evolm","lineTension":0,"borderWidth":1,"pointRadius":2,"fill":false,"data":[-6,-6,-9,-9,-14,-14,-13,-13,-13,-12,-12,-11,-12,null]},{"label":"gazkawa","lineTension":0,"borderWidth":1,"pointRadius":2,"fill":false,"data":[-5,-14,-16,-16,-16,-16,-15,-15,-14,-14,-14,-13,-13,null]},{"label":"Hrodgar","lineTension":0,"borderWidth":1,"pointRadius":2,"fill":false,"data":[-14,-15,-14,-14,-13,-13,-14,-14,-15,-15,-15,-15,-14,null]},{"label":"Daalen","lineTension":0,"borderWidth":1,"pointRadius":2,"fill":false,"data":[-15,-12,-12,-11,-10,-10,-11,-11,-11,-11,-11,-12,-15,null]},{"label":"Patrice Virlin","lineTension":0,"borderWidth":1,"pointRadius":2,"fill":false,"data":[-16,-16,-15,-15,-15,-15,-16,-16,-16,-16,-16,-16,-16,null]}]},"options":{"title":{"display":false,"fontSize":16,"text":""},"scales":{"xAxes":[{"scaleLabel":{"display":true,"labelString":"Tours"},"min":0}],"yAxes":[{"scaleLabel":{"display":true,"labelString":"Positions"},"ticks":{"beginAtZero":false,"min":-16,"max":-1,"stepSize":1,"callback":function (value, index, values) { return 'P ' + -value }}}]},"plugins":{"colorschemes":{"scheme":["red","green","blue","darkviolet","black","gold","cyan","magenta","orangered","deeppink","lime","turquoise","sienna","yellowgreen","royalblue","slategrey","tan"]},"zoom":{"pan":{"enabled":false,"mode":""},"zoom":{"enabled":false,"mode":""}}},"legend":{"position":"top","onClick":function (e, legendItem) { const chart = this.chart; const datasetIndex = legendItem.datasetIndex;  const dataset = chart.data.datasets[datasetIndex]; dataset.borderWidth = dataset.borderWidth === 1 ? 4 : 1; const current = dataset.datalabels?.display ?? false; dataset.datalabels = {display: !current}; chart.update();}}}});
+
+    // Generated with csv-charts at https://c-lake.github.io/csv-charts
+	let ctx9419 = document.getElementById('temps_au_tour').getContext('2d');
+    let csvChart9419 = new Chart(ctx9419, {"type":"line","data":{"labels":[1,2,3,4,5,6,7,8,9,10,11,12,13],"datasets":[{"label":"Oli","lineTension":0,"borderWidth":1,"pointRadius":2,"fill":false,"data":[104.288,96.006,95.584,96.207,96.196,96.261,95.4,95.94,95.526,96.291,95.791,96.99,97.915]},{"label":"vmax330","lineTension":0,"borderWidth":1,"pointRadius":2,"fill":false,"data":[106.467,96.605,96.478,95.963,97.072,96.702,96.668,96.248,96.212,96.239,101.927,96.825,96.772]},{"label":"mark44","lineTension":0,"borderWidth":1,"pointRadius":2,"fill":false,"data":[105.648,96.745,96.467,95.969,96.995,96.104,96.483,96.327,96.826,96.179,104.196,97.029,97.892]},{"label":"Thomas Crabos","lineTension":0,"borderWidth":1,"pointRadius":2,"fill":false,"data":[108.088,98.313,98.109,97.258,99.068,97.679,97.351,96.994,97.008,97.056,97.082,96.762,96.363]},{"label":"Denis Wit","lineTension":0,"borderWidth":1,"pointRadius":2,"fill":false,"data":[107.401,97.944,98.14,97.606,98.956,97.872,97.226,98.598,97.357,98.866,97.759,97.894,97.43]},{"label":"herve069","lineTension":0,"borderWidth":1,"pointRadius":2,"fill":false,"data":[111.376,98.421,98.298,98.37,97.676,97.513,97.772,97.419,97.929,97.154,97.427,97.112,98.022]},{"label":"ludo60360","lineTension":0,"borderWidth":1,"pointRadius":2,"fill":false,"data":[112.854,98.793,98.424,97.915,98.879,98.908,97.75,98.475,97.906,97.448,98.129,98.035,98.286]},{"label":"TomRod","lineTension":0,"borderWidth":1,"pointRadius":2,"fill":false,"data":[110.986,98.717,96.797,99.228,102.851,99.673,98.11,98.844,96.965,96.5,97.473,99.22,97.511]},{"label":"S.Cargo","lineTension":0,"borderWidth":1,"pointRadius":2,"fill":false,"data":[114.839,100.573,100.346,99.421,98.853,99.117,98.671,98.2,98.636,98.553,98.856,98.577,98.896]},{"label":"James Schunt","lineTension":0,"borderWidth":1,"pointRadius":2,"fill":false,"data":[109.597,98.988,97.28,100.424,103.026,103.409,99.484,99.591,99.531,101.267,100.416,99.359,99.254]},{"label":"Jempy","lineTension":0,"borderWidth":1,"pointRadius":2,"fill":false,"data":[113.678,100.028,102.787,101.557,99.694,100.338,99.368,99.966,100.412,100.281,99.697,102.587,100.209]},{"label":"evolm","lineTension":0,"borderWidth":1,"pointRadius":2,"fill":false,"data":[109.303,101.426,98.157,115.875,98.334,97.505,97.347,100.03,97.502,101.19,98.216,117.538,null]},{"label":"gazkawa","lineTension":0,"borderWidth":1,"pointRadius":2,"fill":false,"data":[116.779,108.384,99.306,107.437,98.592,96.916,97.863,98.325,97.694,97.356,97.555,117.519,null]},{"label":"Hrodgar","lineTension":0,"borderWidth":1,"pointRadius":2,"fill":false,"data":[118.022,100.163,100.757,101.522,100.866,102.464,100.483,102.596,101.387,100.924,100.994,103.998,null]},{"label":"Daalen","lineTension":0,"borderWidth":1,"pointRadius":2,"fill":false,"data":[114.084,100.966,100.166,99.111,98.873,102.13,99.833,100.46,99.651,100.435,99.231,120.014,null]},{"label":"Patrice Virlin","lineTension":0,"borderWidth":1,"pointRadius":2,"fill":false,"data":[119.121,101.992,102.768,105.137,100.537,101.359,105.342,100.093,100.131,100.138,100.977,101.987,null]}]},"options":{"title":{"display":false,"fontSize":16,"text":""},"scales":{"xAxes":[{"scaleLabel":{"display":true,"labelString":"Tours"},"min":0}],"yAxes":[{"scaleLabel":{"display":true,"labelString":"mn:sec"},"ticks":{"beginAtZero":false,"min":94,"max":125,"stepSize":2,"callback":function (value, index, values) { return Math.floor(value/60) + ':' + (value - (60*Math.floor(value/60))) }}}]},"plugins":{"colorschemes":{"scheme":["red","green","blue","darkviolet","black","gold","cyan","magenta","orangered","deeppink","lime","turquoise","sienna","yellowgreen","royalblue","slategrey","tan"]},"zoom":{"pan":{"enabled":false,"mode":""},"zoom":{"enabled":false,"mode":""}}},"legend":{"position":"top","onClick":function (e, legendItem) { const chart = this.chart; const datasetIndex = legendItem.datasetIndex;  const dataset = chart.data.datasets[datasetIndex]; dataset.borderWidth = dataset.borderWidth === 1 ? 4 : 1; const current = dataset.datalabels?.display ?? false; dataset.datalabels = {display: !current}; chart.update();}}}});
+
+	// Initial view is lap times
+	document.getElementById('temps_au_tour').style.display = "block";
+	document.getElementById('positions').style.display = "none";
+	document.getElementById('ecarts').style.display = "none";
+
+</script>
+
+</body>
+</html> 
