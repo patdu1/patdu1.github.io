@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<!-- version 21.10.2025 mostly scalable -->
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<style>
+body {
+  font-family: Verdana, Arial, sans-serif;
+  text-align: center;
+}
+table, th, td {
+  border: 0px solid black;
+  border-collapse: collapse;
+  padding-top: 0.5vh;
+  padding-bottom:1vh;
+  text-align:center;
+  font-size: 1.5vw;
+}
+button {
+  color: navy;
+  backgroundColor: whitesmoke;
+  padding: 0.1vh 2vw;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 1.2vw;
+  border-radius: 0.5vw;
+  cursor: pointer;
+}
+#ResWarn {
+	font-size:2.2vw;
+	color:red;
+	text-align:center;
+	background-color: #ffff00;
+}
+
+</style>
+
+<title>Informations Course RFRO</title>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+<script src="https://c-lake.github.io/csv-charts/js/chartjs-plugin-colorschemes.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@0.7.7"></script>
+
+<script type="text/javascript">
+	// My own handling of element display
+	function showWhatIwant(what) {
+	  var x = document.getElementById(what);
+	  var what_btn = 'btn_' + what;
+	  var btn_x = document.getElementById(what_btn);
+	  // Reset all buttons to default and hide all canvas
+	  hideCanvas('temps_au_tour');
+	  hideCanvas('positions');
+	  hideCanvas('ecarts');
+	  document.getElementById('btn_temps_au_tour').style.backgroundColor = "";
+	  document.getElementById('btn_positions').style.backgroundColor = "";
+	  document.getElementById('btn_ecarts').style.backgroundColor = "";
+	  // Set color of clicked button and display selected canvas
+	  x.style.display = "block";
+	  btn_x.style.backgroundColor = "lightskyblue";
+	}
+	
+	function hideCanvas(x) {
+	   document.getElementById(x).style.display = "none";
+	}
+	// NOTE: legend onClick handling taken from https://stackoverflow.com/questions/42555513/chart-js-change-legend-toggle-behaviour
+</script>
+</head>
+
+<body>
+<!-- One table with 3 columns (3 graphs, 3 buttons). Must use colspan to "group" columns on 1st line -->
+<table style="width:95vw">
+<tr>
+<td id="ResWarn" colspan="3">Informations non-officielles</td>
+</tr>
+<tr>
+<td style ="width:33%;text-align:right">Vintage Racing 2 - M5 </td>
+<td style ="width:33%;text-align:left">@ Fuji Speedway 1968</td>
+<td style ="width:33%;text-align:center">Date: 29/06/2026</td>
+</tr>
+<tr>
+<td style="width:33%">
+<button type="button" id="btn_positions"onclick="showWhatIwant('positions')" style="background-color: lightskyblue">Positions</button>
+</td>
+<td style="width:33%">
+<button type="button" id="btn_ecarts" onclick="showWhatIwant('ecarts')">Ecarts</button>
+</td>
+<td style="width:33%">
+<button type="button" id="btn_temps_au_tour" onclick="showWhatIwant('temps_au_tour')">Temps au tour</button>
+</td>
+</tr>
+</table>
+
+<div class="Graphique" style="position:relative; height:80vh; width:95vw; background-color:whitesmoke">
+	<!-- canvas id="temps_au_tour" style="height:100%; width:100%" option="responsive: true; maintainAspectRatio: false"></canvas>
+	<canvas id="positions" style="height:100%; width:100%"></canvas>
+	<canvas id="ecarts" style="height:100%; width:100%"></canvas -->
+	<canvas id="positions" style="height:100%; width:100%" option="maintainAspectRatio: false"></canvas>
+	<canvas id="ecarts" style="height:100%; width:100%" option="maintainAspectRatio: false"></canvas>
+	<canvas id="temps_au_tour" style="height:100%; width:100%" option="maintainAspectRatio: false"></canvas>
+</div>
+
+</p>
+<script>
+	// Charts generation block, copy/pasted/edited from URL below
+    // Generated with csv-charts at https://c-lake.github.io/csv-charts
+	// ECARTS
+	let ctx56 = document.getElementById('ecarts').getContext('2d');
+    let csvChart56 = new Chart(ctx56, {"type":"line","data":{"labels":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33],"datasets":[{"label":"Lahaye","lineTension":0,"borderWidth":1,"pointRadius":2,"fill":false,"data":[0,-1.85199999999999,-0.74199999999999,-0.769000000000006,-0.53000000000003,-1.53400000000011,-1.87400000000014,-2.72699999999998,-2.38300000000004,-2.00199999999995,-2.40300000000002,-2.46399999999994,-2.65899999999988,-1.93899999999985,-3.20800000000008,-2.74099999999999,-2.15299999999979,-1.69000000000005,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]},{"label":"Gazkawa","lineTension":0,"borderWidth":1,"pointRadius":2,"fill":false,"data":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-4.64300000000003,-32.4890000000005,-31.6289999999995,-40.6609999999996,-43.0590000000002,-42.8390000000004,-43.6479999999997,-43.9340000000002,-45.3699999999999,-45.8770000000004,-46.0970000000002,-46.665,-47.5039999999999,-42.8630000000003,-19.7190000000005,-20.252]},{"label":"Pépé Grietick","lineTension":0,"borderWidth":1,"pointRadius":2,"fill":false,"data":[0,-1.571,-2.03800000000001,-3.34700000000004,-4.87399999999997,-6.35000000000002,-7.52400000000012,-7.553,-11.588,-13.5629999999999,-16.126,-18.4759999999999,-20.9969999999998,-22.4069999999997,-25.2190000000003,-36.6780000000001,-75.1059999999998,-77.5509999999999,-78.0259999999998,-81.5610000000002,-83.0069999999996,-85.3329999999996,-87.4090000000001,-91.2560000000003,-94.9259999999995,-97.5239999999999,-101.119,-103.798,-107.893,-111.984,-114.52,-112.379,-93.9480000000003,-98.3099999999995]},{"label":"Oli","lineTension":0,"borderWidth":1,"pointRadius":2,"fill":false,"data":[0,-7.875,-9.39999999999998,-12.831,-28.858,-43.763,-47.9800000000001,-55.912,-59.5569999999999,-62.8689999999999,-67.01,-70.0629999999999,-75.8939999999998,-81.4369999999999,-86.3620000000003,-89.9389999999999,-98.0939999999998,-123.669,-125.67,-129.186,-131.377,-134.285,-137.297,-139.434,-142.400999999999,-145.456,-148.985,-152.015,-156.119,-160.043,-163.382,-161.758,-141.708000000001,null]},{"label":"S.Cargo","lineTension":0,"borderWidth":1,"pointRadius":2,"fill":false,"data":[0,-6.46299999999999,-9.93799999999999,-13.144,-17.724,-20.265,-23.9140000000001,-27.741,-31.655,-35.568,-39.9530000000002,-44.5329999999999,-49.1399999999999,-52.7789999999998,-56.4240000000002,-60.2,-64.6710000000001,-71.508,-76.7619999999997,-117.877,-123.276,-127.815,-131.87,-134.311,-149.056,-152.044,-156.584,-160.279,-164.67,-168.727,-172.661,-171.492,-153.227,null]},{"label":"Jempy","lineTension":0,"borderWidth":1,"pointRadius":2,"fill":false,"data":[0,-7.685,-12.251,-17.404,-23.68,-28.6740000000001,-38.3920000000002,-43.659,-50.133,-55.2259999999999,-60.8589999999999,-66.519,-75.8420000000001,-82.9819999999997,-88.3550000000003,-93.2159999999999,-99.1209999999999,-104.145,-108.192,-117.207,-121.68,-136.102,-168.04,-172.683,-177.268,-183.354,-188.536,-192.978,-199.349,-205.301,-210.994,-211.798,-194.36,null]},{"label":"TomRod","lineTension":0,"borderWidth":1,"pointRadius":2,"fill":false,"data":[0,-11.661,-19.036,-26.521,-33.442,-44.9530000000001,-50.8840000000001,-58.247,-65.2239999999999,-71.4899999999998,-78.4500000000001,-85.3129999999999,-91.7819999999999,-97.3689999999999,-105.456,-111.102,-117.554,-123.669,-127.53,-132.733000000001,-137.855,-154.704,-193.033,-198.862000000001,-205.742999999999,-213.072,-219.128,-227.914,-235.513,-241.224,-248.179,-250.363,null,null]},{"label":"vmax330","lineTension":0,"borderWidth":1,"pointRadius":2,"fill":false,"data":[0,-11.809,-19.38,-26.957,-34.223,-43.7850000000001,-51.7190000000002,-58.5169999999999,-65.992,-72.3389999999999,-79.9650000000002,-85.4279999999999,-93.483,-99.0179999999998,-107.829,-115.74,-126.566,-158.115,-165.023,-172.129,-177.788,-184.049,-206.585,-213.271,-220.596,-226.674,-233.788,-240.08,-247.475,-255.129,-262.29,-265.958000000001,null,null]},{"label":"James Schunt","lineTension":0,"borderWidth":1,"pointRadius":2,"fill":false,"data":[0,-5.92899999999999,-8.40499999999997,-11.463,-15.177,-18.5920000000001,-22.4850000000001,-26.9159999999999,-29.203,-43.55,-65.471,-68.7779999999998,-74.8949999999998,-80.7279999999998,-85.5890000000002,-90.114,-92.644,-97.5060000000001,-99.596,-120.386,-150.301,-157.711,-205.997,-236.476000000001,-253.569999999999,-258.93,-264.931,-272.343,-279.893,-284.391,-289.523,-289.328,null,null]},{"label":"Misc53","lineTension":0,"borderWidth":1,"pointRadius":2,"fill":false,"data":[0,-11.041,-18.467,-25.592,-32.877,-42.918,-50.5900000000001,-57.931,-64.699,-70.9079999999999,-77.423,-83.2259999999999,-89.8739999999998,-96.481,-107.557,-139.436,-198.329,-280.887,-289.05,-308.208000000001,-314.409,-325.618,-338.175,-348.919,-354.631,-358.928,-364.09,-368.772,-387.945,-396.446,-403.712,null,null,null]},{"label":"Thomas Crabos","lineTension":0,"borderWidth":1,"pointRadius":2,"fill":false,"data":[0,-23.69,-28.116,-33.667,-39.258,-44.9440000000001,-51.2450000000001,-59.028,-185.286,-190.425,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null]}]},"options":{"title":{"display":false,"fontSize":16,"text":""},"scales":{"xAxes":[{"scaleLabel":{"display":true,"labelString":"Tours"},"min":0}],"yAxes":[{"scaleLabel":{"display":true,"labelString":"secondes"},"ticks":{"beginAtZero":false,"min":-200,"max":0,"stepSize":10,"callback":function (value, index, values) { return -value }}}]},"plugins":{"colorschemes":{"scheme":["red","green","blue","darkviolet","black","gold","cyan","magenta","orangered","deeppink","lime","turquoise","sienna","yellowgreen","royalblue","slategrey","tan"]},"zoom":{"pan":{"enabled":false,"mode":""},"zoom":{"enabled":false,"mode":""}}},"legend":{"position":"top","onClick":function (e, legendItem) { const chart = this.chart; const datasetIndex = legendItem.datasetIndex;  const dataset = chart.data.datasets[datasetIndex]; dataset.borderWidth = dataset.borderWidth === 1 ? 3 : 1; const current = dataset.datalabels?.display ?? false; dataset.datalabels = {display: !current}; chart.update();}}}});
+
+	// POSITIONS
+	let ctx5171 = document.getElementById('positions').getContext('2d');
+    let csvChart5171 = new Chart(ctx5171, {"type":"line","data":{"labels":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33],"datasets":[{"label":"Lahaye","lineTension":0,"borderWidth":1,"pointRadius":2,"fill":false,"data":[-2,-3,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1]},{"label":"Gazkawa","lineTension":0,"borderWidth":1,"pointRadius":2,"fill":false,"data":[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2]},{"label":"Pépé Grietick","lineTension":0,"borderWidth":1,"pointRadius":2,"fill":false,"data":[-3,-2,-3,-3,-3,-3,-3,-3,-3,-3,-3,-3,-3,-3,-3,-3,-4,-4,-4,-3,-3,-3,-3,-3,-3,-3,-3,-3,-3,-3,-3,-3,-3,-3]},{"label":"Oli","lineTension":0,"borderWidth":1,"pointRadius":2,"fill":false,"data":[-5,-7,-5,-5,-7,-8,-7,-7,-7,-7,-7,-7,-7,-6,-6,-5,-6,-7,-7,-7,-6,-5,-5,-5,-4,-4,-4,-4,-4,-4,-4,-4,-4,null]},{"label":"S.Cargo","lineTension":0,"borderWidth":1,"pointRadius":2,"fill":false,"data":[-6,-5,-6,-6,-5,-5,-5,-5,-5,-4,-4,-4,-4,-4,-4,-4,-3,-3,-3,-5,-5,-4,-4,-4,-5,-5,-5,-5,-5,-5,-5,-5,-5,null]},{"label":"Jempy","lineTension":0,"borderWidth":1,"pointRadius":2,"fill":false,"data":[-7,-6,-7,-7,-6,-6,-6,-6,-6,-6,-5,-5,-6,-7,-7,-7,-7,-6,-6,-4,-4,-6,-6,-6,-6,-6,-6,-6,-6,-6,-6,-6,-6,null]},{"label":"TomRod","lineTension":0,"borderWidth":1,"pointRadius":2,"fill":false,"data":[-9,-9,-9,-9,-9,-11,-9,-9,-9,-9,-9,-9,-9,-9,-8,-8,-8,-7,-8,-8,-7,-7,-7,-7,-7,-7,-7,-7,-7,-7,-7,-7,null,null]},{"label":"vmax330","lineTension":0,"borderWidth":1,"pointRadius":2,"fill":false,"data":[-10,-10,-10,-10,-10,-9,-11,-10,-10,-10,-10,-10,-10,-10,-10,-9,-9,-9,-9,-9,-9,-9,-9,-8,-8,-8,-8,-8,-8,-8,-8,-8,null,null]},{"label":"James Schunt","lineTension":0,"borderWidth":1,"pointRadius":2,"fill":false,"data":[-4,-4,-4,-4,-4,-4,-4,-4,-4,-5,-6,-6,-5,-5,-5,-6,-5,-5,-5,-6,-8,-8,-8,-9,-9,-9,-9,-9,-9,-9,-9,-9,null,null]},{"label":"Misc53","lineTension":0,"borderWidth":1,"pointRadius":2,"fill":false,"data":[-11,-8,-8,-8,-8,-7,-8,-8,-8,-8,-8,-8,-8,-8,-9,-10,-10,-10,-10,-10,-10,-10,-10,-10,-10,-10,-10,-10,-10,-10,-10,null,null,null]},{"label":"Thomas Crabos","lineTension":0,"borderWidth":1,"pointRadius":2,"fill":false,"data":[-8,-11,-11,-11,-11,-10,-10,-11,-11,-11,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null]}]},"options":{"title":{"display":false,"fontSize":16,"text":""},"scales":{"xAxes":[{"scaleLabel":{"display":true,"labelString":"Tours"},"min":0}],"yAxes":[{"scaleLabel":{"display":true,"labelString":"Positions"},"ticks":{"beginAtZero":false,"min":-11,"max":-1,"stepSize":1,"callback":function (value, index, values) { return 'P ' + -value }}}]},"plugins":{"colorschemes":{"scheme":["red","green","blue","darkviolet","black","gold","cyan","magenta","orangered","deeppink","lime","turquoise","sienna","yellowgreen","royalblue","slategrey","tan"]},"zoom":{"pan":{"enabled":false,"mode":""},"zoom":{"enabled":false,"mode":""}}},"legend":{"position":"top","onClick":function (e, legendItem) { const chart = this.chart; const datasetIndex = legendItem.datasetIndex;  const dataset = chart.data.datasets[datasetIndex]; dataset.borderWidth = dataset.borderWidth === 1 ? 3 : 1; const current = dataset.datalabels?.display ?? false; dataset.datalabels = {display: !current}; chart.update();}}}});
+
+	// TEMPS AU TOUR
+	let ctx1883 = document.getElementById('temps_au_tour').getContext('2d');
+    let csvChart1883 = new Chart(ctx1883, {"type":"line","data":{"labels":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33],"datasets":[{"label":"Lahaye","lineTension":0,"borderWidth":1,"pointRadius":2,"fill":false,"data":[122.502,110.992,111.155,110.855,112.061,111.337,112.02,110.556,110.655,110.713,110.768,110.599,110.489,111.504,110.475,110.187,110.452,111.084,111.019,111.687,111.222,111.203,111.513,110.78,111.13,110.22,111.231,110.281,110.728,110.782,116.011,134.736,111.55]},{"label":"Gazkawa","lineTension":0,"borderWidth":1,"pointRadius":2,"fill":false,"data":[120.65,112.102,111.128,111.094,111.057,110.997,111.167,110.9,111.036,110.312,110.707,110.404,111.209,110.235,110.942,110.775,110.915,117.417,138.865,110.827,120.254,113.601,111.293,111.589,111.416,111.656,111.738,110.501,111.296,111.621,111.37,111.592,112.083]},{"label":"Pépé Grietick","lineTension":0,"borderWidth":1,"pointRadius":2,"fill":false,"data":[122.221,112.569,112.437,112.621,112.533,112.171,111.196,114.935,113.011,112.875,113.057,112.925,112.619,113.047,122.401,149.203,113.36,113.249,114.554,113.133,113.548,113.279,115.36,114.45,113.728,113.815,113.91,114.376,114.819,113.318,113.87,116.305,115.912]},{"label":"Oli","lineTension":0,"borderWidth":1,"pointRadius":2,"fill":false,"data":[128.525,113.627,114.559,127.121,125.962,115.214,119.099,114.545,114.348,114.453,113.76,116.235,116.752,115.16,114.519,118.93,136.49,114.775,114.535,113.878,114.13,114.215,113.65,113.747,114.185,113.749,114.261,114.385,114.652,114.121,114.387,114.686,null]},{"label":"S.Cargo","lineTension":0,"borderWidth":1,"pointRadius":2,"fill":false,"data":[127.113,115.577,114.334,115.674,113.598,114.646,114.994,114.814,114.949,114.697,115.287,115.011,114.848,113.88,114.718,115.246,117.752,118.028,152.134,117.086,115.761,115.258,113.954,125.525,114.118,114.76,114.926,114.672,114.785,114.716,114.842,116.471,null]},{"label":"Jempy","lineTension":0,"borderWidth":1,"pointRadius":2,"fill":false,"data":[128.335,116.668,116.281,117.37,116.051,120.715,116.434,117.374,116.129,115.945,116.367,119.727,118.349,115.608,115.803,116.68,115.939,116.821,120.034,116.16,125.644,143.141,116.156,115.365,117.216,115.402,115.673,116.652,116.68,116.475,116.815,117.298,null]},{"label":"TomRod","lineTension":0,"borderWidth":1,"pointRadius":2,"fill":false,"data":[132.311,119.477,118.613,118.015,122.568,116.928,118.53,117.877,117.302,117.272,117.57,116.873,116.796,118.322,116.588,117.227,117.03,116.635,116.222,116.809,128.071,149.532,117.342,117.661,118.459,116.276,120.017,117.88,116.439,117.737,118.195,null,null]},{"label":"vmax330","lineTension":0,"borderWidth":1,"pointRadius":2,"fill":false,"data":[132.459,119.673,118.705,118.36,120.619,118.931,117.965,118.375,117.383,117.938,116.17,118.459,116.744,119.046,118.853,121.601,142.464,119.682,118.125,117.346,117.483,133.739,118.199,118.105,117.208,117.334,117.523,117.676,118.382,117.943,119.679,null,null]},{"label":"James Schunt","lineTension":0,"borderWidth":1,"pointRadius":2,"fill":false,"data":[126.579,114.578,114.186,114.808,114.472,114.89,115.598,113.187,125.383,132.233,114.014,116.521,117.042,115.096,115.467,113.305,115.777,114.864,131.809,141.602,118.632,159.489,141.992,127.874,116.49,116.221,118.643,117.831,115.226,115.914,115.816,null,null]},{"label":"Misc53","lineTension":0,"borderWidth":1,"pointRadius":2,"fill":false,"data":[131.691,119.528,118.253,118.379,121.098,118.669,118.508,117.668,117.245,116.827,116.51,117.052,117.816,121.311,142.821,169.668,193.473,120.937,130.177,117.888,122.431,123.76,122.257,116.492,115.427,115.382,115.913,129.454,119.229,118.048,null,null,null]},{"label":"Thomas Crabos","lineTension":0,"borderWidth":1,"pointRadius":2,"fill":false,"data":[144.34,116.528,116.679,116.685,116.743,117.298,118.95,237.158,116.175,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null]}]},"options":{"title":{"display":false,"fontSize":16,"text":""},"scales":{"xAxes":[{"scaleLabel":{"display":true,"labelString":"Tours"},"min":0}],"yAxes":[{"scaleLabel":{"display":true,"labelString":"mn:sec"},"ticks":{"beginAtZero":false,"min":109,"max":155,"stepSize":2,"callback":function (value, index, values) { return Math.floor(value/60) + ':' + (value - (60*Math.floor(value/60))).toString().padStart(2, '0') }}}]},"plugins":{"colorschemes":{"scheme":["red","green","blue","darkviolet","black","gold","cyan","magenta","orangered","deeppink","lime","turquoise","sienna","yellowgreen","royalblue","slategrey","tan"]},"zoom":{"pan":{"enabled":false,"mode":""},"zoom":{"enabled":false,"mode":""}}},"legend":{"position":"top","onClick":function (e, legendItem) { const chart = this.chart; const datasetIndex = legendItem.datasetIndex;  const dataset = chart.data.datasets[datasetIndex]; dataset.borderWidth = dataset.borderWidth === 1 ? 3 : 1; const current = dataset.datalabels?.display ?? false; dataset.datalabels = {display: !current}; chart.update();}}}});
+
+	// Initial view is lap times
+	document.getElementById('temps_au_tour').style.display = "none";
+	document.getElementById('positions').style.display = "block";
+	document.getElementById('ecarts').style.display = "none";
+
+</script>
+
+</body>
+</html> 
